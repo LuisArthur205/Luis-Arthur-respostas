@@ -1,0 +1,93 @@
+Nome: Luís Arthur Maia Cortêz.
+
+1 Defina o que é um processo em um sistema operacional. 
+
+R) Um processo é a instância de um programa de computador em execução dentro de um sistema operacional. Ele representa a atividade dinâmica de um programa, englobando diversos elementos importantes para sua execução, tais como o código do programa em si, todos os dados utilizados, incluindo variáveis globais, a pilha de execução onde são armazenadas informações temporárias como variáveis locais e endereços de retorno, e o heap, que é a área de memória alocada dinamicamente.
+
+2 Explique o conceito de thread e sua relação com processos. 
+
+R) Uma thread representa a unidade fundamental de utilização da CPU e é um componente essencial dentro de um processo, responsável pela execução de instruções. Enquanto o processo é visto como um contêiner ou um ambiente que agrupa todos os recursos necessários para a execução de um programa, como o espaço de endereçamento de memória, arquivos abertos, dados globais, etc; a thread é a sequência de execução ativa que opera dentro desse ambiente. Em termos mais diretos, se o processo é o canteiro de obras que contém todos os materiais e plantas (recursos), a thread é o trabalhador que efetivamente move, constrói e executa as tarefas.
+
+3 Cite três diferenças entre processos e threads. 
+
+R) Três diferenças notáveis são: 
+
+1) Processos são unidades de alocação de recursos, enquanto threads são unidades de escalonamento; 
+2) Processos têm seus próprios espaços de endereçamento de memória isolados, mas threads dentro do mesmo processo compartilham o mesmo espaço de endereçamento;
+3) A troca de contexto entre threads dentro do mesmo processo é geralmente mais rápida do que a troca de contexto entre processos diferentes, pois o espaço de endereçamento não precisa ser trocado.
+
+4 O que é troca de contexto e quando ela ocorre? 
+
+R) A troca de contexto é uma operação fundamental do sistema operacional que possibilita a multitarefa, permitindo que um único processador execute múltiplos processos ou threads. Essa operação consiste em salvar o estado de execução do processo que está deixando a CPU e carregar o estado do processo que será executado em seguida. A troca de contexto ocorre em diversas situações: primeiro, na multitarefa preemptiva, quando o quantum (tempo limite) de um processo expira, o SO o interrompe e troca o contexto para o próximo processo pronto. Segundo, ocorre quando um processo faz uma chamada de sistema para uma operação de Entrada/Saída, sendo voluntariamente movido para o estado de Espera, permitindo que o SO troque para outro processo produtivo. Terceiro, pode ocorrer devido a chamadas de sistema voluntárias. Por fim, é acionada por interrupções e exceções de hardware, quando o SO precisa assumir o controle para tratar o evento, exigindo que o contexto do processo interrompido seja temporariamente salvo.
+
+5 Explique condição de corrida (race condition). 
+
+R) Uma condição de corrida é comportamento indesejado que ocorre em um sistema, geralmente em programas multithreaded, onde o resultado final de uma operação depende da ordem ou do momento não previsível em que múltiplas threads ou processos acessam e tentam modificar um recurso compartilhado. O nome vem do fato de que as threads ou processos estão em uma "corrida" para acessar e modificar esse recurso. O problema surge quando a operação no recurso compartilhado não é atômica, ou seja, ela é composta por múltiplas etapas e uma das threads é interrompida no meio dessa sequência, permitindo que outra thread execute sua própria sequência de operações. Como resultado, a última escrita pode sobrescrever uma modificação intermediária, ou a lógica do programa pode ser violada, levando a um estado de dados incorreto, instabilidade do sistema ou resultados não determinísticos.
+
+6 O que é um deadlock e como ele pode ocorrer em threads. 
+
+R) Um deadlock (Impasse) é uma situação indesejada que ocorre em sistemas concorrentes, como aqueles que utilizam múltiplas threads ou processos, onde um conjunto de processos ou threads fica bloqueado indefinidamente, pois cada um está esperando por um recurso que está sendo mantido por outro processo ou thread nesse mesmo conjunto, resultando em um ciclo de espera onde ninguém consegue avançar porque todos estão esperando por algo que nunca será liberado. Em threads, ele pode ocorrer quando duas ou mais threads precisam de dois ou mais recursos e cada uma detém um recurso e espera que a outra libere o recurso que precisa. 
+
+7 Descreva duas vantagens do uso de threads. 
+
+R) Duas vantagens são: 
+
+1) Melhor Desempenho, pois as threads podem realizar operações independentes em paralelo, permitindo que o programa continue respondendo enquanto parte dele está bloqueada ou ocupada; 
+2) Compartilhamento de Recursos mais fácil e rápido, pois threads no mesmo processo compartilham automaticamente a memória, arquivos e outros recursos. A sobrecarga na criação de uma thread é significativamente menor do que a criação de um processo completo.
+
+8 Descreva duas desvantagens do uso de threads. 
+
+R) Duas desvantagens são: 
+
+1) Complexidade de Sincronização e maior chance de erros como race conditions e deadlocks, pois a memória compartilhada exige mecanismos cuidadosos de coordenação para garantir a integridade dos dados; 
+2) Problemas de Escalabilidade no ambiente de threads de usuário puro, onde uma thread bloqueante pode parar todas as outras threads do mesmo processo, embora isso seja menos problemático em threads de kernel. Outro desafio é a dificuldade de debugging devido à natureza não determinística da execução concorrente.
+
+9 Explique a diferença entre paralelismo e concorrência. 
+
+Concorrência é a capacidade de um sistema lidar com várias tarefas ao mesmo tempo, dando a ilusão de execução simultânea ao alternar o uso de um único núcleo de CPU entre elas. Paralelismo é a execução real de várias tarefas simultaneamente em múltiplos núcleos de CPU ou processadores. A concorrência é um conceito mais amplo que lida com o projeto de sistemas que podem lidar com múltiplas atividades simultaneamente, independentemente do hardware.
+
+10 O que é IPC e cite dois métodos utilizados. 
+
+Comunicação Interprocessos (IPC), é um conjunto de mecanismos fornecidos pelo sistema operacional que permite que diferentes processos que estão sendo executados independentemente possam trocar informações entre si, sincronizar suas ações e compartilhar dados. Como os processos são isolados uns dos outros, cada um com seu próprio espaço de endereçamento de memória para garantir a segurança do programa, eles não podem acessar diretamente a memória ou os dados de outro. O IPC é, portanto, essencial para a cooperação e coordenação de tarefas em sistemas multitarefas. Dois métodos comuns são: Pipes (ou pipelines), que atuam como um canal de comunicação unidirecional ou bidirecional; e Memória Compartilhada, onde uma região da memória é mapeada para o espaço de endereçamento de vários processos para permitir a leitura e escrita diretas de dados.
+
+11 Explique o que é memória virtual. 
+
+R) Memória virtual é uma técnica de gerenciamento de memória implementada pelo sistema operacional que permite que um programa utilize um espaço de endereçamento lógico de memória maior do que a memória física (RAM) realmente disponível no computador. O objetivo principal é dar a cada processo a ilusão de que ele possui um grande e contíguo bloco de memória exclusivo, o que simplifica muito a programação e a gestão de processos.
+
+12 O que é paginação (paging)? 
+
+A paginação (paging) é o principal esquema de gerenciamento de memória implementado pelos sistemas operacionais modernos para viabilizar a memória virtual. Ela funciona como um esquema de gerenciamento de memória no qual o espaço de endereçamento lógico de um processo é dividido em blocos de tamanho fixo chamados páginas, e a memória física é dividida em blocos de tamanho igual chamados frames. A memória virtual é implementada mapeando páginas lógicas para frames físicos de forma não contígua, usando uma tabela de páginas. Essa técnica resolve o problema da fragmentação externa.
+
+13 O que são page faults e quando ocorrem? 
+
+R) Uma page fault (falta de página) é um tipo de interrupção de hardware que ocorre quando a CPU tenta acessar uma página que faz parte do espaço de endereçamento lógico do processo, mas que atualmente não está carregada na memória física (RAM). Ocorre quando o bit de validade da entrada da página na tabela de páginas é inválido ou ausente. Após uma page fault, o sistema operacional deve localizar a página ausente no disco e carregá-la em um frame de memória livre para que o processo possa continuar.
+
+14 Explique a diferença entre memória lógica e memória física. 
+
+R) A memória lógica é o espaço de endereçamento que um processo ou programa enxerga e utiliza. Do ponto de vista do programa, ele está rodando em um grande e contíguo bloco de memória que começa no endereço zero, e é o espaço de memória que o programador manipula. Este espaço lógico não corresponde necessariamente a nenhum endereço físico real, mas sim aos endereços virtuais gerados pela CPU. O uso da memória lógica simplifica o trabalho do programador, pois ele não precisa se preocupar com a organização real da memória nem com a quantidade de RAM disponível, apenas com os endereços que são relativos ao seu próprio processo.
+
+Já a memória física é a memória RAM real, os chips de memória presentes na máquina. O espaço de endereçamento físico consiste nos endereços físicos correspondentes aos frames da RAM que são acessados pelo barramento de endereços da máquina. A memória física é um recurso finito e é o local real onde os dados e as instruções do programa precisam estar para serem executados pela CPU.
+
+15 O que é segmentação de memória? 
+
+R) A segmentação de memória (segmentation) é um esquema de gerenciamento de memória que permite ao usuário e ao sistema operacional visualizar a memória como uma coleção de segmentos de tamanho variável. Diferentemente da paginação, onde a memória é dividida em blocos fixos (páginas), a segmentação é baseada em uma divisão lógica da memória que reflete a estrutura natural do programa.
+
+16 Explique o algoritmo de substituição LRU.
+
+R) O algoritmo de substituição LRU (Least Recently Used, ou Menos Recentemente Usada) é um algoritmo que visa melhorar o desempenho da memória virtual ao substituir a página que não foi acessada há mais tempo. O LRU assume que a página que está inativa há mais tempo provavelmente não será necessária no futuro imediato, aproximando-se do algoritmo ótimo de substituição. A implementação precisa do LRU geralmente exige um suporte de hardware significativo para registrar os momentos de acesso de cada página. 
+
+17 Explique fragmentação interna e externa. 
+
+R) Fragmentação interna é o espaço desperdiçado dentro de uma unidade de alocação, como uma página ou um segmento, que não está sendo usada pelo processo. Isso é comum na paginação, onde a última página de um processo pode não ser totalmente utilizada. Fragmentação externa é o espaço livre total em diferentes blocos pequenos e não contíguos de memória física que, embora somados, seriam suficientes para atender a uma solicitação, não podem ser usados porque o sistema precisa de um bloco contíguo maior. A fragmentação externa é resolvida pela paginação, mas é um problema comum em sistemas que utilizam alocação de memória contígua.
+
+18 O que é o bit de validade em uma tabela de páginas? 
+
+R) O bit de validade em uma tabela de páginas é um campo que indica se a página lógica correspondente está atualmente carregada na memória física (RAM) (válida) ou se ela está ausente e residindo no disco (inválida). Se o bit for inválido e houver uma tentativa de acesso, isso desencadeia uma page fault. Este bit é crucial para a operação correta da memória virtual.
+
+19 Explique o funcionamento básico de um TLB. 
+
+R) Um TLB (Translation Lookaside Buffer) é um cache de alta velocidade e pequeno que armazena as traduções de endereços virtuais (lógicos) para endereços físicos utilizadas mais recentemente. O funcionamento básico envolve a MMU (Unidade de Gerenciamento de Memória) verificando o TLB primeiro: se encontrar a tradução, o endereço físico é obtido rapidamente (TLB hit); caso contrário, a MMU consulta a tabela de páginas principal na memória (TLB miss). O TLB é vital para acelerar o processo de tradução de endereços, que, de outra forma, exigiria múltiplos acessos à memória principal para cada acesso a dados.
+
+20 O que é swapping no gerenciamento de memória.
+
+R) Swapping é o processo de mover um processo inteiro ou um segmento de memória da memória principal (RAM) para o armazenamento secundário (disco), e vice-versa. É uma técnica de gerenciamento de memória que permite o uso de mais memória do que a RAM física, liberando espaço na memória principal para outros processos ao mover o processo "trocado" para fora. Embora o swapping de processos inteiros seja menos eficiente que a paginação, ele ainda pode ser usado em conjunto com a memória virtual em alguns sistemas.
